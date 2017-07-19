@@ -1,4 +1,4 @@
-# leaflet.box
+# leaflet.arc
 Leaflet Arc support. Inspired by [leaflet.ellipse](https://github.com/jdfergason/Leaflet.Ellipse).
 
 ## API
