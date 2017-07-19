@@ -81,7 +81,7 @@ L.Arc = L.Polyline.extend({
         let latlngs = []
         let deltaAngle = angle/ptCount
 
-        for (var i = 0; i < ptCount; i++) {
+        for (var i = 0; i < ptCount + 1; i++) {
             let useAngle = this.getStartBearing() + deltaAngle * i
             latlngs.push(this.computeDestinationPoint(
                 this.getCenter(),
