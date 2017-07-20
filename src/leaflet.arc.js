@@ -40,11 +40,21 @@ L.Arc = L.Polyline.extend({
     getStartBearing: function () { return this._startBearing },
 
     setStartBearing: function (startBearing = 0) {
-        if (this.getEndBearing() && this.getEndBearing() < startBearing) {
-            while (this.getEndBearing() <=  startBearing) {
-                startBearing -= 360
+        /**
+         * Not sure how much of these checks are neccessary
+         * just using all as a temp fix for rotation problems.
+         */
+        let endBearing = this.getEndBearing() || 360
+
+        while (startBearing < 0) { startBearing += 360 }
+        while (startBearing > 360) { startBearing -= 360 }
+        
+        if (endBearing < startBearing) {
+            while (endBearing <=  startBearing) {
+                startBearing = startBearing - 360
             }
         }
+    
         this._startBearing = startBearing
         return this.redraw()
     },
@@ -52,11 +62,23 @@ L.Arc = L.Polyline.extend({
     getEndBearing: function () { return this._endBearing },
 
     setEndBearing: function (endBearing = 90) {
-        if (this.getStartBearing() && this.getStartBearing() > endBearing) {
-            while (this.getStartBearing() >= endBearing) {
+        /**
+         * Not sure how much of these checks are neccessary
+         * just using all as a temp fix for rotation problems.
+         */
+        let startBearing = this.getStartBearing() || 0
+
+        while (endBearing < 0) { endBearing += 360 }
+        while (endBearing > 360) { endBearing -= 360 }
+        
+        if (startBearing > endBearing) {
+            while (startBearing >= endBearing) {
                 endBearing += 360
             }
         }
+        
+        while (endBearing - startBearing > 360) endBearing -= 360
+    
         this._endBearing = endBearing
         return this.redraw()
     },

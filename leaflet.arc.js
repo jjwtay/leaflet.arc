@@ -88,11 +88,25 @@ L.Arc = L.Polyline.extend({
     setStartBearing: function setStartBearing() {
         var startBearing = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
 
-        if (this.getEndBearing() && this.getEndBearing() < startBearing) {
-            while (this.getEndBearing() <= startBearing) {
-                startBearing -= 360;
+        /**
+         * Not sure how much of these checks are neccessary
+         * just using all as a temp fix for rotation problems.
+         */
+        var endBearing = this.getEndBearing() || 360;
+
+        while (startBearing < 0) {
+            startBearing += 360;
+        }
+        while (startBearing > 360) {
+            startBearing -= 360;
+        }
+
+        if (endBearing < startBearing) {
+            while (endBearing <= startBearing) {
+                startBearing = startBearing - 360;
             }
         }
+
         this._startBearing = startBearing;
         return this.redraw();
     },
@@ -104,12 +118,28 @@ L.Arc = L.Polyline.extend({
     setEndBearing: function setEndBearing() {
         var endBearing = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 90;
 
-        if (this.getStartBearing() && this.getStartBearing() > endBearing) {
-            while (this.getStartBearing() >= endBearing) {
+        /**
+         * Not sure how much of these checks are neccessary
+         * just using all as a temp fix for rotation problems.
+         */
+        var startBearing = this.getStartBearing() || 0;
+
+        while (endBearing < 0) {
+            endBearing += 360;
+        }
+        while (endBearing > 360) {
+            endBearing -= 360;
+        }
+
+        if (startBearing > endBearing) {
+            while (startBearing >= endBearing) {
                 endBearing += 360;
             }
         }
-        this._endBearing = endBearing;
+
+        while (endBearing - startBearing > 360) {
+            endBearing -= 360;
+        }this._endBearing = endBearing;
         return this.redraw();
     },
 
