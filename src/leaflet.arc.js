@@ -56,6 +56,8 @@ L.Arc = L.Polyline.extend({
                 startBearing = startBearing - 360
             }
         }
+
+        while (endBearing - startBearing > 360) startBearing += 360
     
         this._startBearing = startBearing
         return this.redraw()

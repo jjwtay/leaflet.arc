@@ -109,7 +109,9 @@ L.Arc = L.Polyline.extend({
             }
         }
 
-        this._startBearing = startBearing;
+        while (endBearing - startBearing > 360) {
+            startBearing += 360;
+        }this._startBearing = startBearing;
         return this.redraw();
     },
 
