@@ -9,7 +9,8 @@ Leaflet Arc support. Inspired by [leaflet.ellipse](https://github.com/jdfergason
               <LatLng> center,
               <Number> radius,
               <Number> startBearing,
-              <Number> endBearing
+              <Number> endBearing,
+              <Boolean> rhumb,
               <...Leaflet Polyline Options>
     })
 
@@ -17,6 +18,7 @@ Leaflet Arc support. Inspired by [leaflet.ellipse](https://github.com/jdfergason
     * radius - in meters (optional - 100)
     * startBearing - bearing in degrees (optional - 0)
     * endBearing - bearing in degrees (optional - 90)
+    * rhumb - whether to use rhumb or greater circle (optional - false)
     * any leaflet polyline options 
 
 ## Also checkout
