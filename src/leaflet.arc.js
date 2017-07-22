@@ -5,7 +5,7 @@ L.Arc = L.Polyline.extend({
         stroke: true
     },
 
-    initialize ({
+    initialize: function ({
         center = [0, 0],
         radius = 100,
         startBearing = 0,
@@ -25,23 +25,23 @@ L.Arc = L.Polyline.extend({
         this._setLatLngs(this.getLatLngs())
     },
 
-    getCenter () { return this._center },
+    getCenter: function () { return this._center },
 
-    setCenter (center) {
+    setCenter: function (center) {
         this._center = L.latLng(center)
         return this.redraw()
     },
 
-    getRadius () { return this._radius },
+    getRadius: function () { return this._radius },
 
-    setRadius (radius = 100) {
+    setRadius: function (radius = 100) {
         this._radius = Math.abs(radius)
         return this.redraw()
     },
 
-    getStartBearing () { return this._startBearing },
+    getStartBearing: function () { return this._startBearing },
 
-    setStartBearing (startBearing = 0) {
+    setStartBearing: function (startBearing = 0) {
         /**
          * Not sure how much of these checks are neccessary
          * just using all as a temp fix for rotation problems.
@@ -63,9 +63,9 @@ L.Arc = L.Polyline.extend({
         return this.redraw()
     },
 
-    getEndBearing () { return this._endBearing },
+    getEndBearing: function () { return this._endBearing },
 
-    setEndBearing (endBearing = 90) {
+    setEndBearing: function (endBearing = 90) {
         /**
          * Not sure how much of these checks are neccessary
          * just using all as a temp fix for rotation problems.
@@ -87,16 +87,16 @@ L.Arc = L.Polyline.extend({
         return this.redraw()
     },
 
-    getNumberOfPoints () { return this._numberOfPoints },
+    getNumberOfPoints: function () { return this._numberOfPoints },
 
-    setNumberOfPoints (numberOfPoints = 32) {
+    setNumberOfPoints: function (numberOfPoints = 32) {
         this._numberOfPoints = Math.max(10, numberOfPoints)
         return this.redraw()
     },
 
-    getOptions () { return this.options },
+    getOptions: function () { return this.options },
 
-    setOptions (options = {}) {
+    setOptions: function (options = {}) {
         L.setOptions(this, options)
         return this.redraw()
     },
@@ -123,21 +123,21 @@ L.Arc = L.Polyline.extend({
         return latlngs
     },
 
-    setLatLngs (latLngs = this.getLatLngs()) {
+    setLatLngs: function (latLngs = this.getLatLngs()) {
         this._setLatLngs(latLngs)
         return this.redraw()
     },
 
     setStyle: L.Path.prototype.setStyle,
 
-    getRhumb () { return this._rhumb },
+    getRhumb: function () { return this._rhumb },
 
-    setRhumb (rhumb = 45) {
+    setRhumb: function (rhumb = 45) {
         this._rhumb = rhumb
         return this.redraw()
     },
 
-    computeDestinationPoint (
+    computeDestinationPoint: function (
         start = {lat: 0, lng: 0},
         distance = 1,
         bearing = 0,
