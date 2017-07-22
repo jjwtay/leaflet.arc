@@ -46,7 +46,7 @@ L.Arc = L.Polyline.extend({
          * Not sure how much of these checks are neccessary
          * just using all as a temp fix for rotation problems.
          */
-        let endBearing = this.getEndBearing() || 360
+        const endBearing = this.getEndBearing() || 360
 
         while (startBearing < 0) { startBearing += 360 }
         while (startBearing > 360) { startBearing -= 360 }
@@ -70,7 +70,7 @@ L.Arc = L.Polyline.extend({
          * Not sure how much of these checks are neccessary
          * just using all as a temp fix for rotation problems.
          */
-        let startBearing = this.getStartBearing() || 0
+        const startBearing = this.getStartBearing() || 0
 
         while (endBearing < 0) { endBearing += 360 }
         while (endBearing > 360) { endBearing -= 360 }
@@ -102,13 +102,13 @@ L.Arc = L.Polyline.extend({
     },
 
     getLatLngs () {
-        let angle = this.getEndBearing() - this.getStartBearing()
-        let ptCount = angle * this.getNumberOfPoints() / 360
-        let latlngs = []
-        let deltaAngle = angle/ptCount
+        const angle = this.getEndBearing() - this.getStartBearing()
+        const ptCount = angle * this.getNumberOfPoints() / 360
+        const latlngs = []
+        const deltaAngle = angle/ptCount
 
         for (let i = 0; i < ptCount; i++) {
-            let useAngle = this.getStartBearing() + deltaAngle * i
+            const useAngle = this.getStartBearing() + deltaAngle * i
             latlngs.push(this.computeDestinationPoint(
                 this.getCenter(),
                 this.getRadius(),
@@ -147,22 +147,22 @@ L.Arc = L.Polyline.extend({
         if (rhumb) {
             /*http://www.movable-type.co.uk/scripts/latlong.html*/
 
-            let δ = Number(distance) / radius // angular distance in radians
-            let φ1 = start.lat * Math.PI / 180
-            let λ1 = start.lng * Math.PI / 180
-            let θ = bearing * Math.PI / 180
+            const δ = Number(distance) / radius // angular distance in radians
+            const φ1 = start.lat * Math.PI / 180
+            const λ1 = start.lng * Math.PI / 180
+            const θ = bearing * Math.PI / 180
 
-            let Δφ = δ * Math.cos(θ)
+            const Δφ = δ * Math.cos(θ)
             let φ2 = φ1 + Δφ
 
             // check for some daft bugger going past the pole, normalise latitude if so
             if (Math.abs(φ2) > Math.PI/2) φ2 = φ2>0 ? Math.PI-φ2 : -Math.PI-φ2
 
-            let Δψ = Math.log(Math.tan(φ2/2+Math.PI/4)/Math.tan(φ1/2+Math.PI/4))
-            let q = Math.abs(Δψ) > 10e-12 ? Δφ / Δψ : Math.cos(φ1) // E-W course becomes ill-conditioned with 0/0
+            const Δψ = Math.log(Math.tan(φ2/2+Math.PI/4)/Math.tan(φ1/2+Math.PI/4))
+            const q = Math.abs(Δψ) > 10e-12 ? Δφ / Δψ : Math.cos(φ1) // E-W course becomes ill-conditioned with 0/0
 
-            let Δλ = δ*Math.sin(θ)/q
-            let λ2 = λ1 + Δλ
+            const Δλ = δ*Math.sin(θ)/q
+            const λ2 = λ1 + Δλ
 
             //return new LatLon(φ2.toDegrees(), (λ2.toDegrees()+540) % 360 - 180); // normalise to −180..+180°
             return {
@@ -170,10 +170,10 @@ L.Arc = L.Polyline.extend({
                 lng: ((λ2 * 180 / Math.PI) + 540) % 360 - 180
             }
         }
-        let bng = bearing * Math.PI / 180
+        const bng = bearing * Math.PI / 180
 
-        let lat1 = start.lat * Math.PI / 180
-        let lon1 = start.lng * Math.PI / 180
+        const lat1 = start.lat * Math.PI / 180
+        const lon1 = start.lng * Math.PI / 180
 
         let lat2 = Math.asin( Math.sin(lat1)*Math.cos(distance/radius) +
             Math.cos(lat1)*Math.sin(distance/radius)*Math.cos(bng))

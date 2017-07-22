@@ -25,8 +25,14 @@
             "error",
             "unix"
         ],
+        "no-trailing-spaces": [
+            "error"
+        ],
+        "no-use-before-define": "error",
         "no-var": "error",
+        "no-whitespace-before-property": "error",
         "object-shorthand": "error",
+        "prefer-const": "error",
         "quotes": [
             "error",
             "single"
@@ -35,17 +41,20 @@
             "error",
             "never"
         ],
-        "no-trailing-spaces": [
-            "error"
-        ],
-        "no-whitespace-before-property": "error",
+
         "space-before-blocks": "error",
         "space-before-function-paren": [
             "error",
             "always"
-        ]
+        ],
+        "vars-on-top": "error"
     },
     "globals": {
         "L": true
-    }
+    },
+    "overrides": [
+        {
+            "files": "./src/*.js"
+        }
+    ]
 }
