@@ -1,6 +1,24 @@
 # leaflet.arc
 Leaflet Arc support. Inspired by [leaflet.ellipse](https://github.com/jdfergason/Leaflet.Ellipse). [Demo](https://jjwtay.github.io/leaflet.arc/)
 
+## How to
+
+*Traditional*
+
+    Include leaflet.arc.js in your html
+
+    <script src='/path/to/leaflet.arc'></script>
+
+*Webpack as non es6 module*
+
+    import './path/to/leaflet.arc'
+
+    * If using es6 with object spread you can opt to use the uncompiled src/leaflet.arc.js
+
+*ES6 module*
+
+    TODO
+
 ## API
 
 *Factory method*
