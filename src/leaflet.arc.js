@@ -5,7 +5,7 @@ L.Arc = L.Polyline.extend({
         stroke: true
     },
 
-    initialize: function ({
+    initialize ({
         center = [0, 0],
         radius = 100,
         startBearing = 0,
@@ -25,23 +25,23 @@ L.Arc = L.Polyline.extend({
         this._setLatLngs(this.getLatLngs())
     },
 
-    getCenter: function() { return this._center },
+    getCenter () { return this._center },
 
-    setCenter: function(center) {
+    setCenter (center) {
         this._center = L.latLng(center)
         return this.redraw()
     },
 
-    getRadius: function () { return this._radius },
+    getRadius () { return this._radius },
 
-    setRadius: function (radius = 100) {
+    setRadius (radius = 100) {
         this._radius = Math.abs(radius)
         return this.redraw()
     },
 
-    getStartBearing: function () { return this._startBearing },
+    getStartBearing () { return this._startBearing },
 
-    setStartBearing: function (startBearing = 0) {
+    setStartBearing (startBearing = 0) {
         /**
          * Not sure how much of these checks are neccessary
          * just using all as a temp fix for rotation problems.
@@ -50,7 +50,7 @@ L.Arc = L.Polyline.extend({
 
         while (startBearing < 0) { startBearing += 360 }
         while (startBearing > 360) { startBearing -= 360 }
-        
+
         if (endBearing < startBearing) {
             while (endBearing <=  startBearing) {
                 startBearing = startBearing - 360
@@ -58,14 +58,14 @@ L.Arc = L.Polyline.extend({
         }
 
         while (endBearing - startBearing > 360) startBearing += 360
-    
+
         this._startBearing = startBearing
         return this.redraw()
     },
 
-    getEndBearing: function () { return this._endBearing },
+    getEndBearing () { return this._endBearing },
 
-    setEndBearing: function (endBearing = 90) {
+    setEndBearing (endBearing = 90) {
         /**
          * Not sure how much of these checks are neccessary
          * just using all as a temp fix for rotation problems.
@@ -74,40 +74,40 @@ L.Arc = L.Polyline.extend({
 
         while (endBearing < 0) { endBearing += 360 }
         while (endBearing > 360) { endBearing -= 360 }
-        
+
         if (startBearing > endBearing) {
             while (startBearing >= endBearing) {
                 endBearing += 360
             }
         }
-        
+
         while (endBearing - startBearing > 360) endBearing -= 360
-    
+
         this._endBearing = endBearing
         return this.redraw()
     },
 
-    getNumberOfPoints: function () { return this._numberOfPoints },
+    getNumberOfPoints () { return this._numberOfPoints },
 
-    setNumberOfPoints: function (numberOfPoints = 32) {
+    setNumberOfPoints (numberOfPoints = 32) {
         this._numberOfPoints = Math.max(10, numberOfPoints)
         return this.redraw()
     },
 
-    getOptions: function () { return this.options },
+    getOptions () { return this.options },
 
-    setOptions: function (options = {}) {
+    setOptions (options = {}) {
         L.setOptions(this, options)
         return this.redraw()
     },
 
-    getLatLngs() {
+    getLatLngs () {
         let angle = this.getEndBearing() - this.getStartBearing()
         let ptCount = angle * this.getNumberOfPoints() / 360
         let latlngs = []
         let deltaAngle = angle/ptCount
 
-        for (var i = 0; i < ptCount; i++) {
+        for (let i = 0; i < ptCount; i++) {
             let useAngle = this.getStartBearing() + deltaAngle * i
             latlngs.push(this.computeDestinationPoint(
                 this.getCenter(),
@@ -123,21 +123,21 @@ L.Arc = L.Polyline.extend({
         return latlngs
     },
 
-    setLatLngs: function(latLngs = this.getLatLngs()) {
+    setLatLngs (latLngs = this.getLatLngs()) {
         this._setLatLngs(latLngs)
         return this.redraw()
     },
 
     setStyle: L.Path.prototype.setStyle,
 
-    getRhumb: function () { return this._rhumb },
+    getRhumb () { return this._rhumb },
 
-    setRhumb: function (rhumb = 45) {
+    setRhumb (rhumb = 45) {
         this._rhumb = rhumb
         return this.redraw()
     },
 
-    computeDestinationPoint: function (
+    computeDestinationPoint (
         start = {lat: 0, lng: 0},
         distance = 1,
         bearing = 0,
@@ -147,22 +147,22 @@ L.Arc = L.Polyline.extend({
         if (rhumb) {
             /*http://www.movable-type.co.uk/scripts/latlong.html*/
 
-            var δ = Number(distance) / radius // angular distance in radians
-            var φ1 = start.lat * Math.PI / 180
-            var λ1 = start.lng * Math.PI / 180
-            var θ = bearing * Math.PI / 180
+            let δ = Number(distance) / radius // angular distance in radians
+            let φ1 = start.lat * Math.PI / 180
+            let λ1 = start.lng * Math.PI / 180
+            let θ = bearing * Math.PI / 180
 
-            var Δφ = δ * Math.cos(θ)
-            var φ2 = φ1 + Δφ
+            let Δφ = δ * Math.cos(θ)
+            let φ2 = φ1 + Δφ
 
             // check for some daft bugger going past the pole, normalise latitude if so
             if (Math.abs(φ2) > Math.PI/2) φ2 = φ2>0 ? Math.PI-φ2 : -Math.PI-φ2
 
-            var Δψ = Math.log(Math.tan(φ2/2+Math.PI/4)/Math.tan(φ1/2+Math.PI/4))
-            var q = Math.abs(Δψ) > 10e-12 ? Δφ / Δψ : Math.cos(φ1) // E-W course becomes ill-conditioned with 0/0
+            let Δψ = Math.log(Math.tan(φ2/2+Math.PI/4)/Math.tan(φ1/2+Math.PI/4))
+            let q = Math.abs(Δψ) > 10e-12 ? Δφ / Δψ : Math.cos(φ1) // E-W course becomes ill-conditioned with 0/0
 
-            var Δλ = δ*Math.sin(θ)/q
-            var λ2 = λ1 + Δλ
+            let Δλ = δ*Math.sin(θ)/q
+            let λ2 = λ1 + Δλ
 
             //return new LatLon(φ2.toDegrees(), (λ2.toDegrees()+540) % 360 - 180); // normalise to −180..+180°
             return {
@@ -172,15 +172,15 @@ L.Arc = L.Polyline.extend({
         }
         let bng = bearing * Math.PI / 180
 
-        var lat1 = start.lat * Math.PI / 180
-        var lon1 = start.lng * Math.PI / 180
+        let lat1 = start.lat * Math.PI / 180
+        let lon1 = start.lng * Math.PI / 180
 
-        var lat2 = Math.asin( Math.sin(lat1)*Math.cos(distance/radius) +
+        let lat2 = Math.asin( Math.sin(lat1)*Math.cos(distance/radius) +
             Math.cos(lat1)*Math.sin(distance/radius)*Math.cos(bng))
 
-        var lon2 = lon1 + Math.atan2(Math.sin(bng)*Math.sin(distance/radius)*Math.cos(lat1),
+        let lon2 = lon1 + Math.atan2(Math.sin(bng)*Math.sin(distance/radius)*Math.cos(lat1),
             Math.cos(distance/radius)-Math.sin(lat1)*Math.sin(lat2))
-                    
+
         lat2 = lat2 * 180 / Math.PI
         lon2 = lon2 * 180 / Math.PI
 
@@ -202,5 +202,3 @@ L.arc = ({
     ...options
 }) =>
     new L.Arc({center, radius, rhumb, startBearing, numberOfPoints, endBearing, ...options})
-
-

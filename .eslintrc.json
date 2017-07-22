@@ -12,6 +12,11 @@
         }
     },
     "rules": {
+        "arrow-parens": [
+            "error",
+            "always"
+        ],
+        "arrow-spacing": "error",
         "indent": [
             "error",
             4
@@ -20,6 +25,8 @@
             "error",
             "unix"
         ],
+        "no-var": "error",
+        "object-shorthand": "error",
         "quotes": [
             "error",
             "single"
@@ -27,6 +34,15 @@
         "semi": [
             "error",
             "never"
+        ],
+        "no-trailing-spaces": [
+            "error"
+        ],
+        "no-whitespace-before-property": "error",
+        "space-before-blocks": "error",
+        "space-before-function-paren": [
+            "error",
+            "always"
         ]
     },
     "globals": {

@@ -5,7 +5,8 @@
   "main": "leaflet.arc.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup --config rollup.config.js"
+    "build": "rollup --config rollup.config.js",
+    "eslint": "eslint --fix ./src .js"
   },
   "repository": {
     "type": "git",
