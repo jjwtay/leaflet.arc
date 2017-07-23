@@ -52,7 +52,7 @@ L.Arc = L.Polyline.extend({
         while (startBearing > 360) { startBearing -= 360 }
 
         if (endBearing < startBearing) {
-            while (endBearing <=  startBearing) {
+            while (endBearing <= startBearing) {
                 startBearing = startBearing - 360
             }
         }
